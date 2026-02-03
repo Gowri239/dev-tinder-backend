@@ -1,0 +1,15 @@
+{
+  "name": "dev-tinder-backend",
+  "version": "1.0.0",
+  "description": "Tinder like app for developers",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "author": "Gowri",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.11"
+  }
+}
