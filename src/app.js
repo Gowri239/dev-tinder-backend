@@ -36,6 +36,15 @@ app.get("/feed", async (req, res) => {
   }
 });
 
+app.post("/delete", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.body.userId);
+    res.send("Deleted Successfully");
+  } catch (err) {
+    console.log("something went wrong", err);
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection established");
