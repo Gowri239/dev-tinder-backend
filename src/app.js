@@ -3,10 +3,13 @@ const connectDB = require("./Config/database");
 const User = require("./models/user");
 const validationSchema = require("./utils");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 // it will take req.body json and convert it to js object
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/signup", async (req, res) => {
   try {
@@ -33,6 +36,10 @@ app.post("/login", async (req, res) => {
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) res.status(404).send("Invalid Credentials");
 
+    //create a jwt token
+    const token = jwt.sign({ _id: user._id }, "Gowri@2329");
+    // set token in cookie
+    res.cookie("token", token);
     res.send("Login successfull");
   } catch (err) {
     console.log("Error while login", err);
