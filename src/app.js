@@ -50,6 +50,7 @@ app.post("/update", async (req, res) => {
     const { userId, ...updateBody } = req.body;
     const resp = await User.findByIdAndUpdate(userId, updateBody, {
       new: true,
+      runValidators: true,
     });
     res.send(resp);
   } catch (err) {
@@ -65,6 +66,7 @@ app.post("/updateByEmail", async (req, res) => {
       { $set: updateBody },
       {
         new: true,
+        runValidators: true,
       }
     );
     res.send(resp);
