@@ -45,6 +45,34 @@ app.post("/delete", async (req, res) => {
   }
 });
 
+app.post("/update", async (req, res) => {
+  try {
+    const { userId, ...updateBody } = req.body;
+    const resp = await User.findByIdAndUpdate(userId, updateBody, {
+      new: true,
+    });
+    res.send(resp);
+  } catch (err) {
+    console.log("something went wrong", err);
+  }
+});
+
+app.post("/updateByEmail", async (req, res) => {
+  try {
+    const { emailId, ...updateBody } = req.body;
+    const resp = await User.findOneAndUpdate(
+      { emailId: emailId },
+      { $set: updateBody },
+      {
+        new: true,
+      }
+    );
+    res.send(resp);
+  } catch (err) {
+    console.log("something went wrong", err);
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection established");
